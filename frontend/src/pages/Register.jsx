@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Library, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ChrisLibraryLogo from '../components/ChrisLibraryLogo';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -92,16 +93,14 @@ const Register = () => {
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center">
-            <div className="flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full shadow-lg">
-              <Library className="w-8 h-8 text-white" />
-            </div>
+          <div className="flex justify-center mb-6">
+            <ChrisLibraryLogo size="medium" />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Create account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Join our library management system
+            Join Chris's Library Community
           </p>
         </div>
 
@@ -312,7 +311,7 @@ const Register = () => {
         {/* Footer text */}
         <div className="text-center">
           <p className="text-xs text-gray-500">
-            Library Management System © 2025
+            Chris Library Management System © 2025
           </p>
         </div>
       </div>

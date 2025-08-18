@@ -182,24 +182,74 @@ const deleteUser = async (req, res) => {
 // @access  Private (Admin)
 const getDashboardStats = async (req, res) => {
   try {
-    console.log('Dashboard stats endpoint hit');
+    console.log('Dashboard stats endpoint hit by user:', req.user._id);
+    console.log('User role:', req.user.role);
     
-    // Simplified version for debugging
-    const totalUsers = await User.countDocuments({ isActive: true });
-    console.log('Total users:', totalUsers);
+    // Get all statistics in parallel for better performance
+    const [totalUsers, totalBooks, allBooks, transactions] = await Promise.all([
+      User.countDocuments({ isActive: true }),
+      Book.countDocuments({ isActive: true }),
+      Book.find({ isActive: true }).select('availability totalCopies'),
+      Transaction.find({})
+    ]);
     
-    res.json({
+    console.log('Raw data:', {
       totalUsers,
-      totalBooks: 0,
-      totalTransactions: 0,
-      pendingRequests: 0,
-      activeIssues: 0,
-      availableBooks: 0,
-      recentTransactions: []
+      totalBooks,
+      booksCount: allBooks.length,
+      transactionsCount: transactions.length
     });
+    
+    // Calculate available books (sum of all available copies)
+    let availableBooks = 0;
+    let totalCopies = 0;
+    
+    allBooks.forEach(book => {
+      if (book.availability) {
+        const available = book.availability.availableCopies || 0;
+        const total = book.availability.totalCopies || 0;
+        availableBooks += available;
+        totalCopies += total;
+        console.log(`Book: ${book._id}, Available: ${available}, Total: ${total}`);
+      }
+    });
+    
+    // Calculate pending requests
+    const pendingRequests = transactions.filter(t => t.status === 'pending').length;
+    
+    // Calculate active issues (approved issue transactions that haven't been returned)
+    const activeIssues = transactions.filter(t => 
+      t.status === 'approved' && t.type === 'issue' && !t.returnedAt
+    ).length;
+    
+    // Get recent transactions for admin dashboard
+    const recentTransactions = await Transaction.find({})
+      .populate('user', 'firstName lastName email')
+      .populate('book', 'title author')
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .lean();
+    
+    const stats = {
+      totalUsers,
+      totalBooks,
+      availableBooks,
+      pendingRequests,
+      activeIssues,
+      totalTransactions: transactions.length,
+      recentTransactions
+    };
+    
+    console.log('Final dashboard stats:', stats);
+    res.json(stats);
   } catch (error) {
     console.error('Dashboard stats error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error stack:', error.stack);
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: error.message,
+      details: 'Check server logs for more information'
+    });
   }
 };
 

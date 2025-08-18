@@ -1,15 +1,15 @@
 {
-  "name": "library-management-system",
+  "name": "chris-library-management-system",
   "version": "1.0.0",
-  "description": "A modern, full-stack Library Management System built with the MERN stack",
+  "description": "A modern, full-stack Library Management System built with the MERN stack - Customized for Chris's Library",
   "main": "index.js",
   "scripts": {
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm start",
-    "dev:frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build",
-    "start": "cd backend && npm start"
+    "install:all": "pnpm install && cd backend && pnpm install && cd ../frontend && pnpm install",
+    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
+    "dev:backend": "cd backend && pnpm start",
+    "dev:frontend": "cd frontend && pnpm run dev",
+    "build": "cd frontend && pnpm run build",
+    "start": "cd backend && pnpm start"
   },
   "keywords": [
     "library",
@@ -21,7 +21,7 @@
     "mongodb",
     "tailwind"
   ],
-  "author": "Library Management Team",
+  "author": "Chris Library Management Team",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"

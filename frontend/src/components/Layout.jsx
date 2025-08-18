@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import ChrisLibraryLogo from './ChrisLibraryLogo';
 import { 
   BookOpen, 
   Home, 
@@ -80,9 +81,8 @@ const Layout = () => {
           </div>
           
           <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-            <div className="flex-shrink-0 flex items-center px-4 mb-8">
-              <Library className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">LibraryMS</span>
+            <div className="flex-shrink-0 px-4 mb-8">
+              <ChrisLibraryLogo size="small" />
             </div>
             
             <nav className="px-2 space-y-1">
@@ -134,8 +134,7 @@ const Layout = () => {
         <div className="flex flex-col w-64">
           <div className="flex flex-col h-0 flex-1 bg-white shadow-sm">
             <div className="flex items-center h-16 flex-shrink-0 px-4 border-b border-gray-200">
-              <Library className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">LibraryMS</span>
+              <ChrisLibraryLogo size="small" />
             </div>
             
             <div className="flex-1 flex flex-col overflow-y-auto pt-5 pb-4">
@@ -198,8 +197,7 @@ const Layout = () => {
             </button>
             
             <div className="flex items-center">
-              <Library className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-lg font-bold text-gray-900">LibraryMS</span>
+              <ChrisLibraryLogo size="small" />
             </div>
             
             <div className="w-10" /> {/* Spacer for centering */}

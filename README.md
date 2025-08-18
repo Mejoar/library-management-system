@@ -1,6 +1,6 @@
-# Library Management System
+# Chris Library Management System
 
-A modern, full-stack Library Management System built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring beautiful UI with Tailwind CSS v3.4.17.
+A modern, full-stack Library Management System built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring beautiful UI with Tailwind CSS v3.4.17. Customized and personalized for Chris's library operations.
 
 ## Features
 
