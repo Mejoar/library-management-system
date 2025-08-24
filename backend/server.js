@@ -20,7 +20,9 @@ const server = http.createServer(app);
 // Allowed origins for CORS
 const allowedOrigins = [
   "http://localhost:5173",  // Local dev
-  process.env.CLIENT_URL    // Vercel frontend in production
+  process.env.CLIENT_URL,   // Primary Vercel frontend
+  "https://library-management-system-mwlj0dbx4-chris-projects-7330068d.vercel.app", // Current deployment
+  "https://library-management-system-git-main-chris-projects-7330068d.vercel.app" // Git branch deployment
 ].filter(Boolean);
 
 const io = socketIo(server, {
