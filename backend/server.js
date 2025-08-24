@@ -16,15 +16,26 @@ const transactionRoutes = require('./routes/transactionRoutes');
 
 const app = express();
 const server = http.createServer(app);
+
+// Allowed origins for CORS
+const allowedOrigins = [
+  "http://localhost:5173",  // Local dev
+  process.env.CLIENT_URL    // Vercel frontend in production
+].filter(Boolean);
+
 const io = socketIo(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
   }
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 app.use(express.json());
 
 // Routes
